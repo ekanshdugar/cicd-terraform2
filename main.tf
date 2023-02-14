@@ -8,9 +8,7 @@ terraform {
 }
 
 provider "aws" {
-  region     = "us-east-1"
-#   access_key = ""
-#   secret_key = "${secrets.env.AWS_SECRET_ACCESS_KEY}"
+  region = "us-east-1"
 }
 
 resource "aws_instance" "terraform-ec2" {
