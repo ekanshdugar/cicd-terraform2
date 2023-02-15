@@ -13,9 +13,6 @@ provider "aws" {
     secret_key = var.aws_secret_key
 }
 
-variable "aws_access_key" {}
-
-variable "aws_secret_key" {}
 
 
 resource "aws_instance" "terraform-ec2" {
@@ -23,6 +20,13 @@ resource "aws_instance" "terraform-ec2" {
   instance_type = "t2.micro"
 }
 
+variable "aws_access_key" {
+  description = "The AWS access key."
+}
+
+variable "aws_secret_key" {
+  description = "The AWS secret key."
+}
 
 locals {
   aws_access_key = lookup(var.aws_access_key, AWS_ACCESS_KEY_ID)
