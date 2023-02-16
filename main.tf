@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.0"
+      version = "~> 3.72.0"
     }
   }
 }
@@ -20,6 +20,6 @@ resource "aws_instance" "terraform-ec2" {
   ami           = "ami-0aa7d40eeae50c9a9"
   instance_type = "t2.micro"
   key_name      = "ansible-key1"
-  profile       = "default"
+  
 }
 
