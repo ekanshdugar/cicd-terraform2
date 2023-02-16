@@ -9,11 +9,12 @@ terraform {
 
 provider "aws" {
   region = "us-east-1"
-    access_key = ""
-    secret_key = ""
+    access_key = var.aws_access_key_id
+    secret_key = var.aws_secret_access_key
 }
 
-
+variable "aws_access_key_id" {}
+variable "aws_secret_access_key" {}
 
 resource "aws_instance" "terraform-ec2" {
   ami           = "ami-0aa7d40eeae50c9a9"
