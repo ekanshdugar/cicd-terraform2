@@ -64,9 +64,9 @@ resource "aws_iam_instance_profile" "example" {
 
 
 
-metadata_options {
-  http_tokens = "optional"
-  http_put_response_hop_limit = 1
-  http_endpoint = "enabled"
-}
+# metadata_options {
+#   http_tokens = "optional"
+#   http_put_response_hop_limit = 1
+#   http_endpoint = "enabled"
+# }
 
