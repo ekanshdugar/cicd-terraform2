@@ -38,12 +38,10 @@ variable "aws_access_key_id" {}
 variable "aws_secret_access_key" {}
 
 resource "aws_instance" "terraform-ec2" {
-  ami           = "ami-0aa7d40eeae50c9a9"
-  instance_type = "t2.micro"
-  key_name      = "ansible-key1"
+  ami                  = "ami-0aa7d40eeae50c9a9"
+  instance_type        = "t2.micro"
+  key_name             = "ansible-key1"
   iam_instance_profile = aws_iam_instance_profile.example.name
-  
-  
 }
 
 
