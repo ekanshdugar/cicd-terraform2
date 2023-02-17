@@ -28,6 +28,12 @@ resource "aws_iam_role" "example" {
     ]
   })
 }
+
+resource "aws_iam_instance_profile" "example" {
+  name = "example-instance-profile"
+  role = aws_iam_role.example.name
+}
+
 variable "aws_access_key_id" {}
 variable "aws_secret_access_key" {}
 
@@ -42,40 +48,6 @@ resource "aws_instance" "terraform-ec2" {
 }
 
 
-resource "aws_iam_instance_profile" "example" {
-  name = "example-instance-profile"
-
-  role = aws_iam_role.example.name
-
-  # Allow access to the AWS metadata service
-  policy {
-    policy_document = jsonencode({
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Effect    = "Allow"
-          Action    = "ec2:Describe*"
-          Resource  = "*"
-        },
-        {
-          Effect    = "Allow"
-          Action    = "ec2messages:Get*"
-          Resource  = "*"
-        },
-        {
-          Effect    = "Allow"
-          Action    = "ssm:CreateAssociation"
-          Resource  = "*"
-        },
-        {
-          Effect    = "Allow"
-          Action    = "ssm:GetParameters"
-          Resource  = "*"
-        },
-      ]
-    })
-  }
-}
 
 
 
