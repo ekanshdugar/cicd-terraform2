@@ -29,9 +29,32 @@ resource "aws_iam_role" "example" {
   })
 }
 
+
+resource "aws_iam_role" "example1" {
+  name = "example-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      }
+    ]
+  })
+}
+
+
 resource "aws_iam_instance_profile" "example" {
   name = "example-instance-profile"
   role = aws_iam_role.example.name
+}
+
+resource "aws_iam_instance_profile" "example1" {
+  name = "example1-instance-profile"
+  role = aws_iam_role.example1.name
 }
 
 variable "aws_access_key_id" {}
@@ -49,7 +72,7 @@ resource "aws_instance" "ansible-ec2" {
   ami                  = "ami-0dfcb1ef8550277af"
   instance_type        = "t2.micro"
   key_name             = "ansible-key1"
-  iam_instance_profile = aws_iam_instance_profile.example.name
+  iam_instance_profile = aws_iam_instance_profile.example1.name
 }
 
 
