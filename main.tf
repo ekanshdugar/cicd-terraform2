@@ -75,6 +75,12 @@ resource "aws_instance" "ansible-ec2" {
   iam_instance_profile = aws_iam_instance_profile.example1.name
 }
 
+  provisioner "remote-exec" {
+    inline = [
+      "sudo amazon-linux-extras install -y ansible2",
+    ]
+  }
+
 
 
 
@@ -83,4 +89,8 @@ resource "aws_instance" "ansible-ec2" {
 #   http_put_response_hop_limit = 1
 #   http_endpoint = "enabled"
 # }
+
+
+
+
 
