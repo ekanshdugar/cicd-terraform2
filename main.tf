@@ -73,13 +73,27 @@ resource "aws_instance" "ansible-ec2" {
   instance_type        = "t2.micro"
   key_name             = "ansible-key1"
   iam_instance_profile = aws_iam_instance_profile.example1.name
-}
+
+  connection {
+    type        = "ssh"
+    user        = "ec2-user"
+    host        = aws_instance.ansible-ec2.public_ip
+  }
 
   provisioner "remote-exec" {
     inline = [
       "sudo amazon-linux-extras install -y ansible2",
     ]
   }
+}
+
+
+
+
+
+
+
+ 
 
 
 
