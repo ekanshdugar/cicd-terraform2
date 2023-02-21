@@ -59,6 +59,22 @@ resource "aws_iam_instance_profile" "example1" {
   role = aws_iam_role.example1.name
 }
 
+
+resource "aws_security_group" "allow_ssh" {
+  name_prefix = "allow_ssh_"
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "allow_ssh"
+  }
+}
+
 variable "aws_access_key_id" {}
 variable "aws_secret_access_key" {}
 
@@ -67,7 +83,7 @@ resource "aws_instance" "terraform-ec2" {
   instance_type        = "t2.micro"
   key_name             = "ansible-key1"
   iam_instance_profile = aws_iam_instance_profile.example.name
-  vpc_security_group_ids = ["sg-00def51aec8e6034c"]
+  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
 }
 
 
@@ -76,7 +92,7 @@ resource "aws_instance" "ansible-ec2" {
   instance_type        = "t2.micro"
   key_name             = "ansible-key1"
   iam_instance_profile = aws_iam_instance_profile.example1.name
-  vpc_security_group_ids = ["sg-00def51aec8e6034c"]
+  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
 
   connection {
     type        = "ssh"
