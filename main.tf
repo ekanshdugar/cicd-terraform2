@@ -15,7 +15,7 @@ provider "aws" {
 
 resource "aws_iam_role" "example" {
   name = "example-role"
-  vpc_security_group_ids = ["sg-00def51aec8e6034c"]
+  
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -33,7 +33,7 @@ resource "aws_iam_role" "example" {
 
 resource "aws_iam_role" "example1" {
   name = "example1-role"
-  vpc_security_group_ids = ["sg-00def51aec8e6034c"]
+ 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -67,6 +67,7 @@ resource "aws_instance" "terraform-ec2" {
   instance_type        = "t2.micro"
   key_name             = "ansible-key1"
   iam_instance_profile = aws_iam_instance_profile.example.name
+  vpc_security_group_ids = ["sg-00def51aec8e6034c"]
 }
 
 
@@ -75,6 +76,7 @@ resource "aws_instance" "ansible-ec2" {
   instance_type        = "t2.micro"
   key_name             = "ansible-key1"
   iam_instance_profile = aws_iam_instance_profile.example1.name
+  vpc_security_group_ids = ["sg-00def51aec8e6034c"]
 
   connection {
     type        = "ssh"
