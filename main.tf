@@ -83,7 +83,7 @@ resource "aws_instance" "terraform-ec2-1" {
   instance_type        = "t2.micro"
   key_name             = "ansible-key1"
   iam_instance_profile = aws_iam_instance_profile.example.name
-  security_group       = aws_security_group.allow_ssh.id
+  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
 }
 
 
@@ -97,7 +97,7 @@ resource "aws_instance" "ansible-ec2-1" {
   connection {
     type        = "ssh"
     user        = "ec2-user"
-    host        = aws_instance.ansible-ec2.public_ip
+    host        = aws_instance.ansible-ec2-1.public_ip
   }
 
   provisioner "remote-exec" {
