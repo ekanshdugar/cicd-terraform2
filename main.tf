@@ -83,7 +83,7 @@ resource "aws_instance" "terraform-ec2" {
   instance_type        = "t2.micro"
   key_name             = "ansible-key1"
   iam_instance_profile = aws_iam_instance_profile.example.name
-  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+  security_group = aws_security_group.allow_ssh.id
 }
 
 
