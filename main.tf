@@ -50,7 +50,7 @@ resource "aws_iam_role" "example2" {
 
 
 resource "aws_iam_instance_profile" "example1-1" {
-  name = "example1-instance-profile"
+  name = "example1-1-instance-profile"
   role = aws_iam_role.example1-1.name
 }
 
