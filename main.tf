@@ -49,15 +49,15 @@ resource "aws_iam_role" "example2" {
 }
 
 
-resource "aws_iam_instance_profile" "example1-1" {
-  name = "example1-1-instance-profile"
-  role = aws_iam_role.example1-1.name
-}
+# resource "aws_iam_instance_profile" "example1-1" {
+#   name = "example1-1-instance-profile"
+#   role = aws_iam_role.example1-1.name
+# }
 
-resource "aws_iam_instance_profile" "example2" {
-  name = "example2-instance-profile"
-  role = aws_iam_role.example2.name
-}
+# resource "aws_iam_instance_profile" "example2" {
+#   name = "example2-instance-profile"
+#   role = aws_iam_role.example2.name
+# }
 
 
 resource "aws_security_group" "allow_ssh" {
@@ -82,7 +82,7 @@ resource "aws_instance" "terraform-ec2-1" {
   ami                  = "ami-0dfcb1ef8550277af"
   instance_type        = "t2.micro"
   key_name             = "ansible-key1"
-  iam_instance_profile = aws_iam_instance_profile.example1-1.name
+  iam_instance_profile = "arn:aws:iam::226346815849:instance-profile/example1-instance-profile"
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
 }
 
@@ -91,7 +91,7 @@ resource "aws_instance" "ansible-ec2-1" {
   ami                  = "ami-0dfcb1ef8550277af"
   instance_type        = "t2.micro"
   key_name             = "ansible-key1"
-  iam_instance_profile = aws_iam_instance_profile.example2.name
+  iam_instance_profile = "arn:aws:iam::226346815849:instance-profile/example2-instance-profile"
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
 
 #   connection {
