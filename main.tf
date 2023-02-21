@@ -13,8 +13,8 @@ provider "aws" {
     secret_key = var.aws_secret_access_key
 }
 
-resource "aws_iam_role" "example1" {
-  name = "example1-role"
+resource "aws_iam_role" "example1-1" {
+  name = "example1-1-role"
   
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -49,9 +49,9 @@ resource "aws_iam_role" "example2" {
 }
 
 
-resource "aws_iam_instance_profile" "example1" {
+resource "aws_iam_instance_profile" "example1-1" {
   name = "example1-instance-profile"
-  role = aws_iam_role.example1.name
+  role = aws_iam_role.example1-1.name
 }
 
 resource "aws_iam_instance_profile" "example2" {
@@ -82,7 +82,7 @@ resource "aws_instance" "terraform-ec2-1" {
   ami                  = "ami-0dfcb1ef8550277af"
   instance_type        = "t2.micro"
   key_name             = "ansible-key1"
-  iam_instance_profile = aws_iam_instance_profile.example1.name
+  iam_instance_profile = aws_iam_instance_profile.example1-1.name
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
 }
 
@@ -94,17 +94,17 @@ resource "aws_instance" "ansible-ec2-1" {
   iam_instance_profile = aws_iam_instance_profile.example2.name
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
 
-  connection {
-    type        = "ssh"
-    user        = "ec2-user"
-    host        = aws_instance.ansible-ec2-1.public_ip
-  }
+#   connection {
+#     type        = "ssh"
+#     user        = "ec2-user"
+#     host        = aws_instance.ansible-ec2-1.public_ip
+#   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "sudo amazon-linux-extras install -y ansible2",
-    ]
-  }
+#   provisioner "remote-exec" {
+#     inline = [
+#       "sudo amazon-linux-extras install -y ansible2",
+#     ]
+#   }
 }
 
 
