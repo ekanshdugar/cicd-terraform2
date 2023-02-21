@@ -15,6 +15,7 @@ provider "aws" {
 
 resource "aws_iam_role" "example" {
   name = "example-role"
+  vpc_security_group_ids = ["sg-00def51aec8e6034c"]
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -32,6 +33,7 @@ resource "aws_iam_role" "example" {
 
 resource "aws_iam_role" "example1" {
   name = "example1-role"
+  vpc_security_group_ids = ["sg-00def51aec8e6034c"]
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
